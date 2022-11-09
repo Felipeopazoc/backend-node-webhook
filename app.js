@@ -16,6 +16,7 @@ app.get("/",(req,res)=>{
 
 app.post("/webhook",(req,res)=>{
     console.log(req.body);
+    res.json(req.body);
 })
 app.get("/webhook",(req,res)=>{
     const verify_token = "felipeopazo2409";
