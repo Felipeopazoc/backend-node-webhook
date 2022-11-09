@@ -19,23 +19,21 @@ app.post("/webhook",(req,res)=>{
     res.json(req.body);
 })
 app.get("/webhook",(req,res)=>{
-    const verify_token = "felipeopazo2409";
+    // Parse the query params
+  let mode = req.query["hub.mode"];
+  let token = req.query["hub.verify_token"];
+  let challenge = req.query["hub.challenge"];
 
-    res.json(req.body);
-    const mode = req.body["hub.mode"];
-    const token = req.body["hub.verify_token"];
-    const challenge = req.body["hub.challenge"];
-   
-    // Check if a token and mode were sent
-    if (mode && token) {
-        // Check the mode and token sent are correct
-        if (mode === "subscribe" && token === verify_token) {
-        // Respond with 200 OK and challenge token from the request
-         res.json("Verificado");
-        //res.status(200).send(challenge);
-        } 
-    }else{
-        // Responds with '403 Forbidden' if verify tokens do not match
-        res.json("No Verificado")
+  // Check if a token and mode is in the query string of the request
+  if (mode && token) {
+    // Check the mode and token sent is correct
+    if (mode === "subscribe" && token === config.verifyToken) {
+      // Respond with the challenge token from the request
+      console.log("WEBHOOK_VERIFIED");
+      res.status(200).send(challenge);
+    } else {
+      // Respond with '403 Forbidden' if verify tokens do not match
+      res.sendStatus(403);
     }
+  }
 })
