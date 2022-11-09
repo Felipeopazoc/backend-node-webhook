@@ -32,9 +32,9 @@ app.get("/webhook",(req,res)=>{
         // Respond with 200 OK and challenge token from the request
          res.json("Verificado");
         //res.status(200).send(challenge);
-        } else {
+        } 
+    }else{
         // Responds with '403 Forbidden' if verify tokens do not match
         res.json("No Verificado")
-        }
     }
 })
