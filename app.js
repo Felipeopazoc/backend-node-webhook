@@ -18,7 +18,7 @@ app.post("/webhook",(req,res)=>{
     console.log(req.body);
     res.json(req.body);
 })
-app.get("/webhook",(req,res)=>{
+app.get("/verify",(req,res)=>{
     // Parse the query params
   let mode = req.query["hub.mode"];
   let token = req.query["hub.verify_token"];
@@ -27,7 +27,7 @@ app.get("/webhook",(req,res)=>{
   // Check if a token and mode is in the query string of the request
   if (mode && token) {
     // Check the mode and token sent is correct
-    if (mode === "subscribe" && token === process.env.VERIFY_TOKEN) {
+    if (mode === "subscribe" && token === "felipeopazo") {
       // Respond with the challenge token from the request
       console.log("WEBHOOK_VERIFIED");
       res.status(200).send(challenge);
